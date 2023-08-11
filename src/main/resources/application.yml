@@ -1,0 +1,105 @@
+server:
+  port: 8082
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  application:
+    name: boot-test
+  servlet:
+    multipart:
+      enabled: true
+      # 文件单个限制
+      max-file-size: 10MB
+      # 请求最大限制
+      max-request-size: 20MB
+  # 分库分表配置
+  shardingsphere:
+    datasource:
+      # 默认数据源
+      sharding:
+        default-data-source-name: db_master
+      names: db_master,db_0,db_1
+      db_master:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/shard_db
+        username: root
+        password: root
+      db_0:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/shard_db_0
+        username: root
+        password: root
+      db_1:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        jdbc-url: jdbc:mysql://localhost:3306/shard_db_1
+        username: root
+        password: root
+    rules:
+      sharding:
+        tables:
+          # tb_order逻辑
+          tb_order:
+            actual-data-nodes: db_${0..1}.tb_order_${0..2}
+            # tb_order库路由
+            database-strategy:
+              standard:
+                sharding-column: order_id
+                sharding-algorithm-name: database_inline
+            # tb_order表路由
+            table-strategy:
+              standard:
+                sharding-column: order_id
+                sharding-algorithm-name: table_inline
+        sharding-algorithms:
+          # tb_order库路由算法
+          database_inline:
+            type: INLINE
+            props:
+              algorithm-expression: db_${order_id % 2}
+          # tb_order表路由算法
+          table_inline:
+            type: INLINE
+            props:
+              algorithm-expression: tb_order_${order_id % 3}
+    props:
+      sql-show: true
+      sql-comment-parse-enabled: true
+
+logging:
+  level:
+    root: info
+  file:
+    path: ./
+    name: logs/${spring.application.name}.log
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} %contextName [%thread] %-5level %logger- %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} %contextName [%thread] %-5level %logger- %msg%n"
+  logback:
+    rolling-policy:
+      max-history: 7
+      max-file-size: 10MB
+      total-size-cap: 50MB
+
+# springdoc-openapi项目配置
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    tags-sorter: alpha
+    operations-sorter: alpha
+  api-docs:
+    path: /v3/api-docs
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: com.kirito.test.controller
+# knife4j的增强配置，不需要增强可以不配
+knife4j:
+  enable: true
+  setting:
+    language: zh_cn
+
+

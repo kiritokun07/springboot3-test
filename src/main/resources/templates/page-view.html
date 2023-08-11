@@ -1,0 +1,46 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF‐8">
+    <title>Title</title>
+</head>
+<body>
+
+<div style="text-align: center">
+    <hr/>
+    <h5>普通参数解析</h5>
+    姓名：<span th:text="${name}"></span>
+    时间：<span th:text="${time}"></span>
+    <hr/>
+    <h5>对象模型解析</h5>
+    整形：<span th:text="${page.getKey()}"></span>
+    字符：<span th:text="${page.getValue()}"></span>
+    <hr/>
+    <h5>集合容器解析</h5>
+    <table style="margin:0 auto;width: 200px">
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+        <tr th:each="page:${pageList}">
+            <td th:text="${page.getKey()}"></td>
+            <td th:text="${page.getValue()}"></td>
+        </tr>
+    </table>
+    <hr/>
+    <h5>数组容器解析</h5>
+    <table style="margin:0 auto;width: 200px">
+        <tr>
+            <th>Key</th>
+            <th>Value</th>
+        </tr>
+        <tr th:each="page:${pageArr}">
+            <td th:text="${page.getKey()}"></td>
+            <td th:text="${page.getValue()}"></td>
+        </tr>
+    </table>
+    <hr/>
+</div>
+</body>
+</html>
