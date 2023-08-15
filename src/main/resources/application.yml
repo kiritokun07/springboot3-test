@@ -13,61 +13,30 @@ spring:
       max-file-size: 10MB
       # 请求最大限制
       max-request-size: 20MB
-  # 分库分表配置
-  shardingsphere:
-    datasource:
-      # 默认数据源
-      sharding:
-        default-data-source-name: db_master
-      names: db_master,db_0,db_1
-      db_master:
-        type: com.zaxxer.hikari.HikariDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://localhost:3306/shard_db
-        username: root
-        password: root
-      db_0:
-        type: com.zaxxer.hikari.HikariDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://localhost:3306/shard_db_0
-        username: root
-        password: root
-      db_1:
-        type: com.zaxxer.hikari.HikariDataSource
-        driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://localhost:3306/shard_db_1
-        username: root
-        password: root
-    rules:
-      sharding:
-        tables:
-          # tb_order逻辑
-          tb_order:
-            actual-data-nodes: db_${0..1}.tb_order_${0..2}
-            # tb_order库路由
-            database-strategy:
-              standard:
-                sharding-column: order_id
-                sharding-algorithm-name: database_inline
-            # tb_order表路由
-            table-strategy:
-              standard:
-                sharding-column: order_id
-                sharding-algorithm-name: table_inline
-        sharding-algorithms:
-          # tb_order库路由算法
-          database_inline:
-            type: INLINE
-            props:
-              algorithm-expression: db_${order_id % 2}
-          # tb_order表路由算法
-          table_inline:
-            type: INLINE
-            props:
-              algorithm-expression: tb_order_${order_id % 3}
-    props:
-      sql-show: true
-      sql-comment-parse-enabled: true
+  datasource:
+    # 数据库
+    url: jdbc:mysql://localhost:3306/boot-jdbc?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # 连接池-初始化大小
+      initial-size: 10
+      # 连接池-最大连接数
+      max-active: 100
+      # 最大等待时间
+      max-wait: 60000
+      # 连接池-最小空闲数
+      min-idle: 10
+      # 检测空闲连接
+      test-while-idle: true
+      # 最小空闲时间
+      min-evictable-idle-time-millis: 300000
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 logging:
   level:
