@@ -38,7 +38,8 @@ public class CodeGenerator {
                 //}))
                 .packageConfig(builder -> {
                     builder.parent("com.kirito.test") // 设置父包名
-                            .moduleName("domain") // 设置父包模块名
+                            //.moduleName("domain") // 设置父包模块名
+                            .entity("domain")
                             .pathInfo(Collections.singletonMap(OutputFile.xml, projectPath + "src/main/resources/mapper")); // 设置mapperXml生成路径
                 })
                 .strategyConfig((scanner, builder) -> {

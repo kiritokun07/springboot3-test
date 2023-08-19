@@ -15,24 +15,24 @@ spring:
       max-request-size: 20MB
   datasource:
     # 数据库
-    url: jdbc:mysql://localhost:3306/boot-jdbc?useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
-    druid:
-      # 连接池-初始化大小
-      initial-size: 10
-      # 连接池-最大连接数
-      max-active: 100
-      # 最大等待时间
-      max-wait: 60000
-      # 连接池-最小空闲数
-      min-idle: 10
-      # 检测空闲连接
-      test-while-idle: true
-      # 最小空闲时间
-      min-evictable-idle-time-millis: 300000
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    druid:
+#      # 连接池-初始化大小
+#      initial-size: 10
+#      # 连接池-最大连接数
+#      max-active: 100
+#      # 最大等待时间
+#      max-wait: 60000
+#      # 连接池-最小空闲数
+#      min-idle: 10
+#      # 检测空闲连接
+#      test-while-idle: true
+#      # 最小空闲时间
+#      min-evictable-idle-time-millis: 300000
 
 mybatis-plus:
   configuration:
