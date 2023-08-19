@@ -25,9 +25,8 @@ public class YUserController {
     private final IYUserService iyUserService;
 
     @GetMapping("test1")
-    public String test1() {
+    public List<YUser> test1() {
         List<YUser> list = iyUserService.list();
-        list.forEach(System.out::println);
-        return "SUCCESS";
+        return list;
     }
 }
