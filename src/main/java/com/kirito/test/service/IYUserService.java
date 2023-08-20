@@ -1,7 +1,7 @@
 package com.kirito.test.service;
 
-import com.kirito.test.domain.YUser;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.kirito.test.domain.YUser;
 
 /**
  * <p>
@@ -12,5 +12,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-08-15 17:42:20
  */
 public interface IYUserService extends IService<YUser> {
+
+    YUser findOneByUserName(String userName);
 
 }

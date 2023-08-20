@@ -1,7 +1,7 @@
 package com.kirito.test.mapper;
 
-import com.kirito.test.domain.YUser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.kirito.test.domain.YUser;
 
 /**
  * <p>

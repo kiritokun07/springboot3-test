@@ -19,7 +19,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
 
 @RestController
 @Slf4j
@@ -50,7 +49,7 @@ public class FileWeb {
      */
     @GetMapping("/file/download")
     public void download(@RequestParam("fileName") String fileName,
-                       HttpServletResponse response) throws Exception {
+                         HttpServletResponse response) throws Exception {
         if (!fileName.isBlank()) {
             String filePath = ResourceUtils.getURL("m1-04-boot-file/src/main/resources/file").getPath();
             File file = new File(filePath, fileName);

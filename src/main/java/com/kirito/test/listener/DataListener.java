@@ -12,14 +12,15 @@ public class DataListener extends AnalysisEventListener<DataVO> {
      */
     @Override
     public void invoke(DataVO data, AnalysisContext context) {
-        System.out.println("DataListener："+data);
+        System.out.println("DataListener：" + data);
     }
+
     /**
      * 接收解析的表头
      */
     @Override
     public void invokeHeadMap(Map<Integer, String> headMap, AnalysisContext context) {
-        System.out.println("DataListener："+headMap);
+        System.out.println("DataListener：" + headMap);
     }
 
     @Override
