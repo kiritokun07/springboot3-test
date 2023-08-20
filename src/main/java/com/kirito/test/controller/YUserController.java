@@ -25,8 +25,8 @@ public class YUserController {
 
     private final IYUserService iyUserService;
 
-    @GetMapping("test1")
-    public IPage<YUser> test1() {
+    @GetMapping("ytest1")
+    public IPage<YUser> yTest1() {
         IPage<YUser> page = new Page<>(1, 10);
         LambdaQueryChainWrapper<YUser> queryChainWrapper = iyUserService.lambdaQuery();
         queryChainWrapper.page(page);

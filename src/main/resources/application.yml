@@ -5,7 +5,7 @@ server:
 
 spring:
   application:
-    name: boot-test
+    name: kirito-test
   servlet:
     multipart:
       enabled: true
@@ -21,7 +21,7 @@ spring:
       username: root
       password: root
       driver-class-name: com.mysql.cj.jdbc.Driver
-#      db-type: com.alibaba.druid.pool.DruidDataSource
+      #      db-type: com.alibaba.druid.pool.DruidDataSource
       # 连接池-初始化大小
       initial-size: 10
       # 连接池-最大连接数
@@ -34,10 +34,33 @@ spring:
       test-while-idle: true
       # 最小空闲时间
       min-evictable-idle-time-millis: 300000
+  data:
+    redis:
+      host: 127.0.0.1
+      port: 6379
+      database: 0
+      # 读超时
+      timeout: 3000
+      # 连接超时
+      connectTimeout: 5000
+      # Lettuce连接池
+      lettuce:
+        pool:
+          # 最小空闲连接
+          min-idle: 5
+          # 最大空闲连接
+          max-idle: 10
+          # 最大连接数
+          max-active: 100
+          # 连接分配应该阻塞的最大时间
+          max-wait: 2000
+
 
 
 mybatis-plus:
   configuration:
+    # 二级缓存，不适用于频繁修改数据的业务
+    cache-enabled: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 logging:
