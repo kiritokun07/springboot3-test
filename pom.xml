@@ -153,6 +153,12 @@
             </exclusions>
         </dependency>
 
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-data-elasticsearch</artifactId>-->
+<!--&lt;!&ndash;            <version>${spring-boot.version}</version>&ndash;&gt;-->
+<!--        </dependency>-->
+
     </dependencies>
 
     <build>
