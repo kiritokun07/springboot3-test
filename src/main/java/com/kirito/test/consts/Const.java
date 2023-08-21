@@ -1,4 +1,4 @@
-package com.kirito.test.types;
+package com.kirito.test.consts;
 
 /**
  * @author kirito

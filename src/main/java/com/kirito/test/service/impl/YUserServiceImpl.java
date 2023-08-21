@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kirito.test.domain.YUser;
 import com.kirito.test.mapper.YUserMapper;
 import com.kirito.test.service.IYUserService;
-import com.kirito.test.types.Const;
+import com.kirito.test.consts.Const;
 import org.springframework.stereotype.Service;
 
 /**

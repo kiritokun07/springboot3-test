@@ -40,7 +40,7 @@ public class CodeGenerator {
                     builder.parent("com.kirito.test") // 设置父包名
                             //.moduleName("domain") // 设置父包模块名
                             .entity("domain")
-                            .pathInfo(Collections.singletonMap(OutputFile.xml, projectPath + "src/main/resources/mapper")); // 设置mapperXml生成路径
+                            .pathInfo(Collections.singletonMap(OutputFile.xml, projectPath + "/src/main/resources/mapper")); // 设置mapperXml生成路径
                 })
                 .strategyConfig((scanner, builder) -> {
                     builder.addInclude(getTables(scanner.apply("请输入表名，多个英文逗号分隔？所有输入 all"))) // 设置需要生成的表名
