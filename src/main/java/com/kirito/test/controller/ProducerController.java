@@ -4,7 +4,6 @@ import com.kirito.test.config.MyProperties;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.rocketmq.client.producer.DefaultMQProducer;
-import org.apache.rocketmq.client.producer.SendResult;
 import org.apache.rocketmq.common.message.Message;
 import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,15 +41,48 @@ public class ProducerController {
         return "OK";
     }
 
+    //并发消息
     @GetMapping("/test2")
     public String test2() throws Exception {
-        Message message = new Message();
-        message.setTopic(myProperties.getTestTopic());
-        //message.setTags("boot-mq-tag");
-        message.setKeys(String.valueOf(System.currentTimeMillis() / 1000));
-        message.setBody("蛤蛤蛤2".getBytes());
-        // 发送消息，打印日志
-        SendResult sendResult = defaultMqProducer.send(message);
+        for (int i = 0; i < 100; i++) {
+            String timestamp = String.valueOf(i);
+            Message message = new Message();
+            message.setTopic(myProperties.getTestTopic());
+            //message.setTags("boot-mq-tag");
+            message.setKeys(timestamp);
+            message.setBody(timestamp.getBytes());
+            // 发送消息，打印日志
+            defaultMqProducer.send(message);
+            //defaultMqProducer.send(message, (mqs, msg, arg) -> {
+            //    int id = Math.abs(arg.hashCode());
+            //    long index = id % mqs.size();
+            //    return mqs.get((int) index);
+            //}, "123456789");
+        }
+        log.info("OK2");
+        return "OK2";
+    }
+
+    //RocketMQ 顺序消费
+    //https://www.jianshu.com/p/a1bfa60cb39b
+    //顺序消息
+    @GetMapping("/test3")
+    public String test3() throws Exception {
+        for (int i = 0; i < 100; i++) {
+            String timestamp = String.valueOf(i);
+            Message message = new Message();
+            message.setTopic(myProperties.getTestTopic());
+            //message.setTags("boot-mq-tag");
+            message.setKeys(timestamp);
+            message.setBody(timestamp.getBytes());
+            // 发送消息，打印日志
+            //defaultMqProducer.send(message);
+            defaultMqProducer.send(message, (mqs, msg, arg) -> {
+                int id = Math.abs(arg.hashCode());
+                long index = id % mqs.size();
+                return mqs.get((int) index);
+            }, "123456789");
+        }
         log.info("OK2");
         return "OK2";
     }
